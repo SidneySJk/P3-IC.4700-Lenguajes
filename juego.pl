@@ -229,3 +229,23 @@ subRutas(Inicio, Fin, Visitados, Camino) :-
     subRutas(Siguiente, Fin, Visitados2, Camino).
 
 
+% Verifica si el jugador gano
+
+verifica_gane():-
+    jugador(Lugar),
+    ( tesoro(Lugar, Objeto) -> 
+        inventario(Inventario),
+        ( member(Objeto, Inventario) -> 
+            lugares(Lugares),
+            inventario(Inventario),
+            write('Felicidades!!! Ganaste el juego!!!'),
+            write('Camino realizado: '), nl, leer_(Lugares),
+            write('Inventario actual: '), nl, leer_(Inventario),
+            write('Lugar donde encontraste el tesoro: '), nl, write(Lugar)
+        ;
+            write('Aun no recolectas la llave del tesoro!'), nl, fail
+        )
+    ; 
+        write('No te encuentras ningun punto de gane'), nl, fail
+    ).
+
